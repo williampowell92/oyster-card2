@@ -19,13 +19,6 @@ describe '#top_up' do
   end
 end
 
-describe '#deduct' do
-  it 'should deduct an amount from our balance and return correct amount' do
-    subject.instance_variable_set(:@balance, 20)
-    expect { subject.deduct(10) }.to change { subject.balance }.by(-10)
-  end
-end
-
 describe '#touch_in' do
   it 'should change in_journey? on touch_in' do
     subject.instance_variable_set(:@balance, 20)
@@ -33,12 +26,6 @@ describe '#touch_in' do
   end
   it 'should raise an error message if balance on #touch_in is less than £1' do
     expect { subject.touch_in }. to raise_error 'Insufficient funds for a journey'
-  end
-end
-
-describe '#in_journey?' do
-  it 'should respond to in_journey' do
-    expect(subject).to respond_to(:in_journey?)
   end
 end
 

@@ -15,10 +15,6 @@ class Oystercard
     "Your total balance is £#{@balance += amount}."
   end
 
-  def deduct(amount)
-    "Your total balance is £#{@balance -= amount}"
-  end
-
   def touch_in
     raise 'Insufficient funds for a journey' if balance < MINIMUM_BALANCE
     @in_route = true
@@ -26,7 +22,7 @@ class Oystercard
 
   def touch_out
     @in_route = false
-    @balance -= MINIMUM_CHARGE
+    deduct(MINIMUM_CHARGE)
   end
 
   def in_journey?
@@ -34,6 +30,10 @@ class Oystercard
   end
 
 private
+
+  def deduct(amount)
+    "Your total balance is £#{@balance -= amount}"
+  end
 
   def max_limit?(amount)
     @balance + amount > MAX_LIMIT
