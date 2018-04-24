@@ -48,5 +48,9 @@ describe '#touch_out' do
     subject.touch_in
     expect { subject.touch_out }.to change { subject.in_journey? }
   end
+
+  it 'should deduct minimum fare upon #touch_out' do
+    expect { subject.touch_out }.to change { subject.balance }.by(-1)
+  end
 end
 end
