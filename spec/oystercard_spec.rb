@@ -10,10 +10,6 @@ describe Oystercard do
 end
 
 describe '#top_up' do
-  it 'should respond to top_up method' do
-    expect(oystercard).to respond_to(:top_up).with(1).argument
-  end
-
   it 'should return correct balance when topped up' do
     expect { oystercard.top_up(10) }.to change { oystercard.balance }.by(10)
   end
@@ -30,4 +26,22 @@ describe '#deduct' do
   end
 end
 
+describe '#touch_in' do
+  it 'should change in_journey? on touch_in' do
+    expect { subject.touch_in }.to change { subject.in_journey? }
+  end
+end
+
+describe '#in_journey?' do
+  it 'should respond to in_journey' do
+    expect(subject).to respond_to(:in_journey?)
+  end
+end
+
+describe '#touch_out' do
+  it 'should change in_journey? on touch_out' do
+    subject.touch_in
+    expect { subject.touch_out }.to change { subject.in_journey? }
+  end
+end
 end

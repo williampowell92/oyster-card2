@@ -5,6 +5,7 @@ class Oystercard
 
   def initialize
     @balance = 0
+    @in_route = false
   end
 
   def top_up(amount)
@@ -14,6 +15,18 @@ class Oystercard
 
   def deduct(amount)
     "Your total balance is £#{@balance -= amount}"
+  end
+
+  def touch_in
+    @in_route = true
+  end
+
+  def touch_out
+    @in_route = false
+  end
+
+  def in_journey?
+    @in_route
   end
 
 private
