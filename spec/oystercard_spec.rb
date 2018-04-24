@@ -25,12 +25,8 @@ end
 
 describe '#deduct' do
   it 'should deduct an amount from our balance and return correct amount' do
-    oystercard.instance_variable_set(:@balance, 20)
-    expect { oystercard.deduct(10) }.to change { oystercard.balance }.by(-10)
-  end
-
-  it 'should raise error if balance is below 0' do
-    expect { oystercard.deduct(10) }.to raise_error("Cannot travel. Insufficent funds.")
+    subject.instance_variable_set(:@balance, 20)
+    expect { subject.deduct(10) }.to change { subject.balance }.by(-10)
   end
 end
 
