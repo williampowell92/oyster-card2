@@ -28,7 +28,11 @@ end
 
 describe '#touch_in' do
   it 'should change in_journey? on touch_in' do
+    subject.instance_variable_set(:@balance, 20)
     expect { subject.touch_in }.to change { subject.in_journey? }
+  end
+  it 'should raise an error message if balance on #touch_in is less than £1' do
+    expect { subject.touch_in }. to raise_error 'Insufficient funds for a journey'
   end
 end
 
@@ -40,6 +44,7 @@ end
 
 describe '#touch_out' do
   it 'should change in_journey? on touch_out' do
+    subject.instance_variable_set(:@balance, 20)
     subject.touch_in
     expect { subject.touch_out }.to change { subject.in_journey? }
   end

@@ -1,4 +1,5 @@
 MAX_LIMIT = 90
+MINIMUM_BALANCE = 1
 
 class Oystercard
   attr_reader :balance
@@ -18,6 +19,7 @@ class Oystercard
   end
 
   def touch_in
+    raise 'Insufficient funds for a journey' if balance < MINIMUM_BALANCE
     @in_route = true
   end
 
