@@ -1,8 +1,10 @@
-MAX_LIMIT = 90
-MINIMUM_BALANCE = 1
-MINIMUM_CHARGE = 1
+
 
 class Oystercard
+  MAX_LIMIT = 90
+  MINIMUM_BALANCE = 1
+  MINIMUM_CHARGE = 1
+
   attr_reader :balance, :list_of_journeys
 
   def initialize
