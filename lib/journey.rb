@@ -1,21 +1,27 @@
 class Journey
-
-attr_reader :started
+  attr_reader :entry_station, :exit_station
 
   def initialize
-    @started = false
+    @complete = false
   end
 
-  def start
-    @started = true
+  def start(entry_station)
+    @entry_station = entry_station
   end
 
-  def stop
-    @started = false
+  def finish(exit_station)
+    @exit_station = exit_station
+    complete_journey
   end
 
-  def journey_complete?
-    @started == false
+  def complete?
+    @complete
+  end
+
+  private
+
+  def complete_journey
+    @complete = true
   end
 
 end
