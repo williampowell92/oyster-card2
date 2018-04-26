@@ -1,15 +1,15 @@
 
 
-class Oystercard
-  MAX_LIMIT = 90
-  MINIMUM_BALANCE = 1
-  MINIMUM_CHARGE = 1
+class Oystercard # creates a class called OysterCard
+  MAX_LIMIT = 90 # creates a constant called MAX_LIMIT
+  MINIMUM_BALANCE = 1 # creates a constant called MINIMUM_BALANCE
+  MINIMUM_CHARGE = 1 # creates a constant called MINIMUM_CHARGE
 
-  attr_reader :balance, :list_of_journeys
+  attr_reader :balance, :journeys # gives access to balance and journeys
 
-  def initialize
-    @balance = 0
-    @list_of_journeys = []
+  def initialize # method that runs on instance creation
+    @balance = 0 # sets instance variable balance to 0
+    @journeys = [] # sets instance variable journeys to []
   end
 
   def top_up(amount)
@@ -24,7 +24,7 @@ class Oystercard
 
   def touch_out(exit_station)
     deduct(MINIMUM_CHARGE)
-    @list_of_journeys << { @entry_station => exit_station }
+    @journeys << { @entry_station => exit_station }
     @entry_station = nil
   end
 

@@ -12,8 +12,8 @@ describe Oystercard do
   end
 
   describe '#initialise' do
-    it 'should have #list_of_journeys as an empty hash' do
-      expect(subject.list_of_journeys).to be_empty
+    it 'should have # as an empty hash' do
+      expect(subject.journeys).to be_empty
     end
   end
 
@@ -60,7 +60,7 @@ end
         marylebone = "Marylebone"
         subject.touch_in(baker_street)
         subject.touch_out(marylebone)
-        expect(subject.list_of_journeys.last[baker_street]).to eq marylebone
+        expect(subject.journeys.last[baker_street]).to eq marylebone
       end
       it 'should change in_journey? on touch_out' do
         subject.touch_out(exit_station)
@@ -77,7 +77,7 @@ end
       end
 
       it 'should store one journey' do
-        expect(subject.list_of_journeys.length).to eq 1
+        expect(subject.journeys.length).to eq 1
       end
     end
 
