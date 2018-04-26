@@ -26,18 +26,26 @@ class Oystercard # creates a class called OysterCard
   def touch_out(exit_station) # method that takes one argument
     deduct(MINIMUM_CHARGE) # reduces balance by amount
     @journey[:exit_station] = exit_station # sets the exit station in journey to exit station
-    @journeys << @journey # saves the journey into journeys
-    @journey = {} # resets the journey hash
+    save_journey # calls method to save journey hash into journeys array
+    reset_journey # resets journey to a new hash
   end
 
-  def in_journey?
-    !!@journey[:entry_station] && @journey[:exit_station].nil?
+  def in_journey? # method takes no arguments
+    !!@journey[:entry_station] && @journey[:exit_station].nil? # returns true if entry station is not nil and exit station is nil
   end
 
 private
 
-  def deduct(amount)
-    @balance -= amount
+  def deduct(amount) # method takes one argument
+    @balance -= amount # deducts amount from balance
+  end
+
+  def save_journey
+    @journeys << @journey # saves the journey into journeys
+  end
+
+  def reset_journey
+    @journey = {} # resets the journey hash
   end
 
   def exceeds_limit?(amount)
