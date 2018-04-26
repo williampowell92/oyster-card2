@@ -1,9 +1,11 @@
 require 'oystercard'
 
 describe Oystercard do
+  let(:penalty_fare) { 6 }
   let(:entry_station) { instance_double Station }
   let(:exit_station) { instance_double Station }
   let(:minimum_charge) { Oystercard::MINIMUM_CHARGE }
+  let(:journey) { instance_double Journey, finish: nil, fare: 6 }
 
   describe '#balance' do
     it 'should return the balance' do
@@ -31,6 +33,10 @@ describe Oystercard do
     it 'should raise an error message if balance on #touch_in is less than £1' do
       expect { subject.touch_in(entry_station) }.to raise_error 'Insufficient funds for a journey'
     end
+
+    it 'should deduct penalty fare if last journey was not complete' do
+
+    end
   end
 
   describe '#touch_out' do
@@ -52,6 +58,11 @@ describe Oystercard do
       subject.touch_in(entry_station)
       subject.touch_out(exit_station)
       expect(subject.journeys.length).to eq 1
+    end
+
+    it 'should deduct penalty fare if no touch in' do
+      subject.top_up(described_class::MAX_LIMIT)
+      expect { subject.touch_out(exit_station, journey) }.to change { subject.balance }.by(-penalty_fare)
     end
   end
 end
