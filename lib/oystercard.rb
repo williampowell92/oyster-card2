@@ -1,4 +1,4 @@
-
+# holds balance and allows you to manipulate it
 
 class Oystercard # creates a class called OysterCard
   MAX_LIMIT = 90 # creates a constant called MAX_LIMIT
@@ -49,10 +49,10 @@ private
   end
 
   def exceeds_limit?(amount)
-    @balance + amount > MAX_LIMIT
+    @balance + amount > MAX_LIMIT # checks if an addition will exceed the cards limit
   end
 
   def insufficient_funds?
-    balance < MINIMUM_BALANCE
+    balance < MINIMUM_BALANCE # checks if the card has insufficient funds
   end
 end
