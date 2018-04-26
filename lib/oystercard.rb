@@ -12,13 +12,13 @@ class Oystercard # creates a class called OysterCard
     @journeys = [] # sets instance variable journeys to []
   end
 
-  def top_up(amount)
-    raise "Cannot top up as balance exceeds maximum limit." if max_limit?(amount)
-    "Your total balance is £#{@balance += amount}."
+  def top_up(amount) # method that takes one argument
+    raise "Cannot top up as balance exceeds maximum limit." if exceeds_limit?(amount) # raises error if amount exceeds card limit
+    @balance += amount # increases balance by amount
   end
 
-  def touch_in(entry_station)
-    raise 'Insufficient funds for a journey' if balance < MINIMUM_BALANCE
+  def touch_in(entry_station) # method that takes one argument
+    raise 'Insufficient funds for a journey' if insufficient_funds? #
     @entry_station = entry_station
   end
 
@@ -38,7 +38,11 @@ private
     "Your total balance is £#{@balance -= amount}"
   end
 
-  def max_limit?(amount)
+  def exceeds_limit?(amount)
     @balance + amount > MAX_LIMIT
+  end
+
+  def insufficient_funds?
+    balance < MINIMUM_BALANCE
   end
 end
