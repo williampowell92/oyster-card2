@@ -1,14 +1,13 @@
 require 'oystercard'
 
 describe Oystercard do
-  let(:oystercard) { Oystercard.new }
-  let(:entry_station) { double :entry_station }
-  let(:exit_station) { double :exit_station}
+  let(:entry_station) { instance_double Station }
+  let(:exit_station) { instance_double Station }
   let(:minimum_charge) { Oystercard::MINIMUM_CHARGE }
 
   describe '#balance' do
     it 'should return the balance' do
-      expect(oystercard.balance).to eq 0
+      expect(subject.balance).to eq 0
     end
   end
 
@@ -18,14 +17,13 @@ describe Oystercard do
     end
   end
 
-
   describe '#top_up' do
     it 'should return correct balance when topped up' do
-      expect { oystercard.top_up(10) }.to change { oystercard.balance }.by(10)
+      expect { subject.top_up(10) }.to change { subject.balance }.by(10)
     end
 
     it 'should raise error if total exceeds max limit' do
-      expect { oystercard.top_up(100) }.to raise_error("Cannot top up as balance exceeds maximum limit.")
+      expect { subject.top_up(100) }.to raise_error("Balance exceeds maximum limit")
     end
   end
 
@@ -36,13 +34,13 @@ describe Oystercard do
   end
 
   describe '#touch_out' do
-    it 'should deduct minimum fare upon #touch_out' do
+    it 'should deduct minimum fare' do
       subject.top_up(minimum_charge)
       subject.touch_in(entry_station)
       expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-1)
     end
 
-    it 'should store exit_station on touch_out' do
+    it 'should store exit_station' do
       subject.top_up(minimum_charge)
       subject.touch_in(entry_station)
       subject.touch_out(exit_station)

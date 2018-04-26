@@ -28,4 +28,21 @@ describe Journey do
     end
   end
 
+  describe '#fare' do
+    it 'should return minimum fare if there are entry and exit stations' do
+      subject.start(entry_station)
+      subject.finish(exit_station)
+      expect(subject.fare).to eq described_class::MINIMUM_FARE
+    end
+
+    it 'should return penalty fare if there is just an entry station' do
+      subject.start(entry_station)
+      expect(subject.fare).to eq described_class::PENALTY_FARE
+    end
+
+    it 'should return penalty fare if there is just an exit station' do
+      subject.finish(exit_station)
+      expect(subject.fare).to eq described_class::PENALTY_FARE
+    end
+  end
 end

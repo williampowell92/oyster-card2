@@ -12,7 +12,7 @@ class Oystercard
   end
 
   def top_up(amount)
-    raise "Cannot top up as balance exceeds maximum limit." if exceeds_limit?(amount)
+    raise "Balance exceeds maximum limit" if exceeds_limit?(amount)
     @balance += amount
   end
 
@@ -23,8 +23,8 @@ class Oystercard
   end
 
   def touch_out(exit_station)
-    deduct(MINIMUM_CHARGE)
     @journey.finish(exit_station)
+    deduct(@journey.fare)
     save_journey
   end
 
